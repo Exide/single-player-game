@@ -69,11 +69,11 @@ private:
     size_t currentFrame = 0;
 
     const std::vector<const char*> validationLayers = {
-            "VK_LAYER_LUNARG_standard_validation"
+        "VK_LAYER_LUNARG_standard_validation"
     };
 
     const std::vector<const char*> deviceExtensions = {
-            VK_KHR_SWAPCHAIN_EXTENSION_NAME
+        VK_KHR_SWAPCHAIN_EXTENSION_NAME
     };
 
     void initializeWindow() {
