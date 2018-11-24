@@ -12,23 +12,25 @@
 
 class Application {
 
-public:
-
-    Application() : renderer(800, 600) {}
-
-    void run() {
-        renderer.initializeWindow();
-        renderer.initializeVulkan();
-        loop();
-        renderer.cleanup();
-    }
-
 private:
 
-    Renderer renderer;
+    Renderer* renderer;
 
-    void loop() {
-        renderer.update();
+public:
+
+    Application() {
+        renderer = new Renderer(800, 600);
+    }
+
+    ~Application() {
+        delete renderer;
+    }
+
+    void run() {
+        renderer->initializeWindow();
+        renderer->initializeVulkan();
+        renderer->update();
+        renderer->cleanup();
     }
 
 };

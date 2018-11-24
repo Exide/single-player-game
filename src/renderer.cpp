@@ -27,6 +27,47 @@ struct SwapChainSupportDetails {
 
 class Renderer {
 
+private:
+
+    const char* GAME_NAME = "Single Player Game";
+    const char* ENGINE_NAME = "Single Player Engine";
+    const size_t MAX_FRAMES_IN_FLIGHT = 2;
+    const uint32_t width;
+    const uint32_t height;
+
+    GLFWwindow *window;
+    VkInstance instance{};
+    VkDebugUtilsMessengerEXT callback{};
+    VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+    VkDevice logicalDevice{};
+    VkQueue graphicsQueue{};
+    VkSurfaceKHR surface{};
+    VkQueue presentationQueue{};
+    VkSwapchainKHR swapChain{};
+    std::vector<VkImage> swapChainImages;
+    VkFormat swapChainImageFormat;
+    VkExtent2D swapChainExtent{};
+    std::vector<VkImageView> swapChainImageViews;
+    VkRenderPass renderPass{};
+    VkPipelineLayout pipelineLayout{};
+    VkPipeline graphicsPipeline{};
+    std::vector<VkFramebuffer> swapChainFramebuffers;
+    VkCommandPool commandPool{};
+    std::vector<VkCommandBuffer> commandBuffers;
+    std::vector<VkSemaphore> imageAvailableSemaphores;
+    std::vector<VkSemaphore> renderFinishedSemaphores;
+    std::vector<VkFence> inFlightFences;
+    size_t currentFrame = 0;
+    bool framebuffersResized = false;
+
+    const std::vector<const char*> validationLayers = {
+        "VK_LAYER_LUNARG_standard_validation"
+    };
+
+    const std::vector<const char*> deviceExtensions = {
+        VK_KHR_SWAPCHAIN_EXTENSION_NAME
+    };
+
 public:
 
     Renderer(uint32_t width, uint32_t height) : width(width), height(height) {}
@@ -96,46 +137,6 @@ public:
     }
 
 private:
-
-    const char* GAME_NAME = "Single Player Game";
-    const char* ENGINE_NAME = "Single Player Engine";
-    const size_t MAX_FRAMES_IN_FLIGHT = 2;
-    const uint32_t width;
-    const uint32_t height;
-
-    GLFWwindow *window;
-    VkInstance instance;
-    VkDebugUtilsMessengerEXT callback;
-    VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
-    VkDevice logicalDevice;
-    VkQueue graphicsQueue;
-    VkSurfaceKHR surface;
-    VkQueue presentationQueue;
-    VkSwapchainKHR swapChain;
-    std::vector<VkImage> swapChainImages;
-    VkFormat swapChainImageFormat;
-    VkExtent2D swapChainExtent;
-    std::vector<VkImageView> swapChainImageViews;
-    VkRenderPass renderPass;
-    VkPipelineLayout pipelineLayout;
-    VkPipeline graphicsPipeline;
-    std::vector<VkFramebuffer> swapChainFramebuffers;
-    VkCommandPool commandPool;
-    std::vector<VkCommandBuffer> commandBuffers;
-    std::vector<VkSemaphore> imageAvailableSemaphores;
-    std::vector<VkSemaphore> renderFinishedSemaphores;
-    std::vector<VkFence> inFlightFences;
-    size_t currentFrame = 0;
-    bool framebuffersResized = false;
-
-    const std::vector<const char*> validationLayers = {
-        "VK_LAYER_LUNARG_standard_validation"
-    };
-
-    const std::vector<const char*> deviceExtensions = {
-        VK_KHR_SWAPCHAIN_EXTENSION_NAME
-    };
-
 
     static void destroyDebugUtilsMessenger(VkInstance instance,
                                     VkDebugUtilsMessengerEXT callback,
