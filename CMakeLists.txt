@@ -9,7 +9,7 @@ find_package(GLM REQUIRED)
 find_package(Spdlog REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
-set(SOURCE_FILES src/main.cpp src/application.cpp src/file-io.cpp)
+set(SOURCE_FILES src/main.cpp src/application.cpp src/file-io.cpp src/renderer.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
